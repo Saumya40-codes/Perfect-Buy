@@ -1,0 +1,72 @@
+{% extends 'cart/home.html' %}
+
+{% block content %}
+
+<style>
+  button{
+    background-color: rgb(212, 212, 10);
+    width:100px;
+    height: 35px;
+    border:none;
+    border-radius: 17.5px;
+    border-color: rgb(201, 201, 21);
+    color: brown;
+    font-weight: bold;
+    margin-top: 10px;
+    border-width: 1px;
+    cursor: pointer;
+    transition: background-color 0.5s, color 0.5s, box-shadow 0.5s;
+  }
+  button:hover{
+    background-color: rgb(189, 189, 29);
+    color:rgb(172, 36, 36);
+    box-shadow: 6px 6px 8px rgba(0,0,0,0.6);
+  }
+
+
+  .form-group{
+    display: flex;
+    padding:80px 60px 80px 40px;
+    margin: 175px 540px;
+    border:2px solid aquamarine;
+    justify-content: center;
+    border-radius: 20px;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+  }
+  .msg{
+    background-color: brown;
+    color: blue;
+  }
+</style>
+<div class="msg">
+  {% for msg in messages %}
+  <p>{{msg}}</p>
+  {% endfor %}
+</div>
+{% if name == 'login' %}
+<form action="" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="username">Username</label>
+      {{form.username}} <br>
+      <label for="password">Password</label>
+      {{form.password}} <br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <p>Do not have an account ?</p>
+    <p>  <a href="{% url 'signup' %}">Sign Up Here !</a> </p>
+  </div>
+  </form>
+ {%else%} 
+ <form action="" method="post">
+  {% csrf_token %}
+  <div class="form-group">
+   {{form_s.as_p}}
+  <button type="submit">Signup</button>
+  <p>Already have an account ?</p>
+    <p>  <a href="{% url 'login' %}">Login Here !</a> </p>
+  </div>
+</form>
+{% endif %}
+{% endblock %}

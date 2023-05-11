@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .blk{
+            display: flex;
+            justify-content: left;
+            column-gap: 20px;
+        }
+    </style>
+</head>
+<body>
+    {% block content %}
+    <div class="blk">
+    <a href="{% url 'login' %}">Login</a>
+    <a href="{% url 'signup' %}">Signup</a>
+</div>
+    <h1>PerfectBuy</h1>
+    <p>Get the best products from anywhere around the world</p>
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,28 @@
+{% extends 'cart/home.html' %}
+
+{% block content %}
+<style>
+    .srch{
+        display: flex;
+        justify-content: center;
+    }
+</style>
+<form action="" method="post">
+    {% csrf_token %}
+    <div class="srch">
+    <input type="text" placeholder="Search for products" name="q"> <button type="submit">Search</button>
+</div>
+    <div class="pub">
+    <a href="{% url 'publish_prod' %}">Publish Your Product</a>
+   </div>
+</form>
+<div>
+    {% for item in items %}
+   Name: {{item.name}} <br>
+   Price:  {{item.price}} <br>
+   Description: {{item.descp}} <br>
+   <a href="{% url 'view' item.id %}">View</a>
+    <hr>
+    {% endfor %}
+</div>
+{% endblock %}
