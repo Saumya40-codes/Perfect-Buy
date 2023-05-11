@@ -67,7 +67,8 @@ def publish(request):
             Q(name__icontains=name) | 
             Q(descp__icontains=name)
         )
-        context = {'items': items}
+        item_count = items.count()
+        context = {'items': items, 'item_count': item_count}
         return render(request, 'cart/publish.html', context)
     items = Products.objects.all()
     context = {'items': items}
@@ -89,3 +90,7 @@ def view(request, pk):
     item = Products.objects.get(id=pk)
     context = {'item': item}
     return render(request, 'cart/view.html', context)
+
+def logout_user(request):
+    logout(request)
+    return redirect('index')

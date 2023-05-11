@@ -6,17 +6,65 @@
         display: flex;
         justify-content: center;
     }
+    input[id="search"]{
+        border:2px solid blue;
+        border-radius: 10px;
+        padding:10px;
+        margin-right: 10px;
+    }
+    button{
+        border:2px solid blue;
+        border-radius: 10px;
+        padding:10px;
+        background-color: blue;
+        color: white;
+        cursor: pointer;
+    }
+    button:hover{
+        box-shadow: 6px 6px 9px rgba(0,0,0,0.5);
+    }
+
+    .pub{
+        display: flex;
+        justify-content: right;
+        font-weight: bold;
+    }
+    .available-items{
+        font-family: Arial;
+        margin-bottom: 10px;
+        font-weight: bold;
+        color:burlywood
+    }
+    .welcome{
+        display: flex;
+        justify-content: right;
+        top:0px;
+        margin-bottom: 5px;
+    }
+    .log-out{
+        display: flex;
+        margin-top: 120px;
+        justify-content: right;
+    }
 </style>
 <form action="" method="post">
     {% csrf_token %}
-    <div class="srch">
-    <input type="text" placeholder="Search for products" name="q"> <button type="submit">Search</button>
+<div class="srch">
+    <input type="text" placeholder="Search for products" name="q" id="search"> <button type="submit">Search</button>
+</div>
+<div class="welcome">
+    Welcome, {{request.user}}
 </div>
     <div class="pub">
-    <a href="{% url 'publish_prod' %}">Publish Your Product</a>
+    <a href="{% url 'publish_prod' %}">Publish Your Product</a> <br> 
    </div>
 </form>
 <div>
+    <div class="available-items">
+        {% if item_count %}
+        {{item_count}} items available <br>
+        {% endif %}
+    </div>
     {% for item in items %}
    Name: {{item.name}} <br>
    Price:  {{item.price}} <br>
@@ -24,5 +72,10 @@
    <a href="{% url 'view' item.id %}">View</a>
     <hr>
     {% endfor %}
+</div>
+
+
+<div class="log-out">
+    <a href="{% url 'logout' %}">Log Out</a>
 </div>
 {% endblock %}

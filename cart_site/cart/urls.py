@@ -7,5 +7,6 @@ urlpatterns = [
     path('publish/', views.publish, name='publish'),
     path('publish_prod/', views.publish_prod, name='publish_prod'),
     path('view/<str:pk>/', views.view, name='view'),
+    path('logout/', views.logout_user, name='logout')
 ]
 
