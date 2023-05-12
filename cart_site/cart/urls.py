@@ -8,6 +8,7 @@ urlpatterns = [
     path('publish_prod/', views.publish_prod, name='publish_prod'),
     path('view/<str:pk>/', views.view, name='view'),
     path('logout/', views.logout_user, name='logout'),
-    path('cart/', views.cart, name='cart')
+    path('cart/', views.cart, name='cart'),
+    path('comment/',views.comment,name='comment'),
 ]
 

@@ -1,13 +1,13 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Login, Products, Cart
-from .forms import LoginForm, ProductsForm
+from .models import Login, Products, Cart, Comments
+from .forms import LoginForm, ProductsForm, CommentForm
 from django.contrib.auth import authenticate, logout , login as login_dj
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from django.db.models import Q
+from django.db.models import Q, Sum
 # Create your views here.
 
 
@@ -103,19 +103,34 @@ def view(request, pk):
         messages.success(request, 'Item added to cart successfully')
         pk = int(request.POST.get('item_id'))
         item = Products.objects.get(id=pk)
-        context = {'item': item}
+        form = CommentForm()
+        context = {'item': item, 'form': form}
         return render(request, 'cart/view.html', context)
     item = Products.objects.get(id=pk)
-    context = {'item': item}
+    form = CommentForm()
+    context = {'item': item, 'form': form}
     return render(request, 'cart/view.html', context)
 
 def cart(request):
     name = User.objects.get(username=request.user)
     items = Cart.objects.filter(user=name)
     item_count = items.count()
-    context = {'items': items, 'item_count': item_count}
+    total_price = items.aggregate(Sum('price'))['price__sum'] or 0
+    context = {'items': items, 'item_count': item_count, 'total_price': total_price}
     return render(request, 'cart/cart_items.html', context)
 
 def logout_user(request):
     logout(request)
     return redirect('index')
+
+def comment(request):
+    if request.method == 'POST':
+        pk = request.POST.get('item_ids')
+        com = CommentForm(request.POST)
+        if com.is_valid():
+            com.save()
+        item = Products.objects.get(id=pk)
+        form = CommentForm()    
+        comments = Comments.objects.all()
+        context = {'comment': comments, 'item': item,'form': form}
+        return render(request, 'cart/view.html', context)

@@ -1,8 +1,10 @@
 {% extends 'cart/home.html' %}
 {% block content %}
+Total Items : {{items.count}} <br>
+Total Price : {{total_price}} <br>
 {% for item in items %}
-{{item.name}}
-{{item.price}}
-{{item.descp}} 
+{{item.name}} <br>
+{{item.price}} <br>
+{{item.descp}}  <br>
 {% endfor %}
 {% endblock %}

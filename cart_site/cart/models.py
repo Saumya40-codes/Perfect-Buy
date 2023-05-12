@@ -22,3 +22,9 @@ class Cart(models.Model):
     descp = models.CharField(max_length=100)
     def __str__(self):
         return self.name
+    
+class Comments(models.Model):
+    title = models.CharField(max_length=50)
+    comment = models.CharField(max_length=500)
+    def __str__(self):
+        return self.title

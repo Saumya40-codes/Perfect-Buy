@@ -11,14 +11,30 @@
             justify-content: left;
             column-gap: 20px;
         }
+        .block{
+            overflow: hidden;
+        }
+        .lo{
+            float: right;
+        }
+        .exp{
+            float: left;
+        }
     </style>
 </head>
 <body>
     {% block content %}
+{% if not request.user.is_authenticated %}
     <div class="blk">
     <a href="{% url 'login' %}">Login</a>
     <a href="{% url 'signup' %}">Signup</a>
 </div>
+{% else %}
+<div class="block">
+<a href="{% url 'publish' %}" class="exp">Explore</a>
+<a href="{% url 'logout' %}" class="lo">Logout</a>
+</div>
+{% endif %}
     <h1>PerfectBuy</h1>
     <p>Get the best products from anywhere around the world</p>
     {% endblock %}

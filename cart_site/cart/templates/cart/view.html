@@ -13,6 +13,12 @@
     .btn:hover{
         box-shadow: 6px 6px 9px rgba(0,0,0,0.5);
     }
+
+    .rc{
+        margin-top: 50px;
+        font-size: 40px;
+        font-weight: bold;
+    }
 </style>
 
 
@@ -31,5 +37,21 @@
 </form>
 {% for message in messages %}
 {{message}} <a href="{% url 'cart' %}">View Your Cart</a>
+{% endfor %}
+
+
+<p class="rc">Reviews & Comments </p>
+<form action="{% url 'comment' %}" method="post">
+{% csrf_token %}
+<input type="hidden" name="item_ids" value="{{item.id}}">
+{{item.id}}
+Title : {{form.title}} <br>
+Comment : {{form.comment}}
+<input type="submit" value="Post">
+</form>
+<hr>
+{% for comments in comment %}
+<p>{{comments.title}}</p>
+<p>{{comments.comment}}</p>
 {% endfor %}
 {% endblock %}
