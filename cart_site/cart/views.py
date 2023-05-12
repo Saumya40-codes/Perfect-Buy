@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Login, Products
+from .models import Login, Products, Cart
 from .forms import LoginForm, ProductsForm
 from django.contrib.auth import authenticate, logout , login as login_dj
 from django.contrib.auth.models import User
@@ -87,9 +87,34 @@ def publish_prod(request):
     return render(request, 'cart/publish_prod.html', context)
 
 def view(request, pk):
+    if request.method == 'POST':
+        item_name = request.POST.get('item_name')
+        item_price = request.POST.get('item_price')
+        item_descp = request.POST.get('item_descp')
+        name = User.objects.get(username=request.user)
+        cart_item, created = Cart.objects.get_or_create(
+            user=name,
+            name=item_name,
+            price=item_price,
+            descp=item_descp,     
+        )
+        if created:
+           cart_item.save()
+        messages.success(request, 'Item added to cart successfully')
+        pk = int(request.POST.get('item_id'))
+        item = Products.objects.get(id=pk)
+        context = {'item': item}
+        return render(request, 'cart/view.html', context)
     item = Products.objects.get(id=pk)
     context = {'item': item}
     return render(request, 'cart/view.html', context)
+
+def cart(request):
+    name = User.objects.get(username=request.user)
+    items = Cart.objects.filter(user=name)
+    item_count = items.count()
+    context = {'items': items, 'item_count': item_count}
+    return render(request, 'cart/cart_items.html', context)
 
 def logout_user(request):
     logout(request)

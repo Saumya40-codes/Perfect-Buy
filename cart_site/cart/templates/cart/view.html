@@ -1,7 +1,35 @@
 {% extends 'cart/home.html' %}
 {% block content %}
+<style>
+    .btn{
+        margin-top: 10px;
+        padding:12px 30px 12px 30px;
+        border-radius: 15px;
+        background-color: rgb(189, 189, 5);
+        color: antiquewhite;
+        transition: box-shadow 0.5s;
+        cursor: pointer;
+    }
+    .btn:hover{
+        box-shadow: 6px 6px 9px rgba(0,0,0,0.5);
+    }
+</style>
+
+
 {{item.name}} <br>
 {{item.price}} <br>
-{{item.descp}}
+{{item.descp}} <br>
 
+<form action="" method="post">
+{% csrf_token %}
+<input type="hidden" name="username" value="{{request.user}}">
+<input type="hidden" name="item_id" value="{{item.id}}">
+<input type="hidden" name="item_name" value="{{item.name}}">
+<input type="hidden" name="item_price" value="{{item.price}}">
+<input type="hidden" name="item_descp" value="{{item.descp}}"> <br>
+<input type="submit" value="Add to cart" class="btn">
+</form>
+{% for message in messages %}
+{{message}} <a href="{% url 'cart' %}">View Your Cart</a>
+{% endfor %}
 {% endblock %}

@@ -57,7 +57,10 @@
 </div>
     <div class="pub">
     <a href="{% url 'publish_prod' %}">Publish Your Product</a> <br> 
-   </div>
+</div>
+<div class="pub">
+    <a href="{% url 'cart' %}">View your cart</a>
+</div>
 </form>
 <div>
     <div class="available-items">
@@ -73,7 +76,6 @@
     <hr>
     {% endfor %}
 </div>
-
 
 <div class="log-out">
     <a href="{% url 'logout' %}">Log Out</a>
