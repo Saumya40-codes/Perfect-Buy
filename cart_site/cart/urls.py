@@ -10,5 +10,6 @@ urlpatterns = [
     path('logout/', views.logout_user, name='logout'),
     path('cart/', views.cart, name='cart'),
     path('comment/',views.comment,name='comment'),
+    path('delete/<str:pk>/', views.delete, name='delete'),
 ]
 

@@ -134,3 +134,9 @@ def comment(request):
         comments = Comments.objects.all()
         context = {'comment': comments, 'item': item,'form': form}
         return render(request, 'cart/view.html', context)
+    
+def delete(request, pk):
+    item = Cart.objects.get(id=pk)
+    item.delete()
+    messages.success(request, 'Item deleted successfully')
+    return redirect('cart')
