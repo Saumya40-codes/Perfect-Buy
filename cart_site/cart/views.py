@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.db.models import Q, Sum
+from django.urls import reverse
 # Create your views here.
 
 
@@ -108,7 +109,8 @@ def view(request, pk):
         return render(request, 'cart/view.html', context)
     item = Products.objects.get(id=pk)
     form = CommentForm()
-    context = {'item': item, 'form': form}
+    comment = Comments.objects.filter(name=item)
+    context = {'item': item, 'form': form, 'comment': comment}
     return render(request, 'cart/view.html', context)
 
 def cart(request):
@@ -126,14 +128,20 @@ def logout_user(request):
 def comment(request):
     if request.method == 'POST':
         pk = request.POST.get('item_ids')
-        com = CommentForm(request.POST)
-        if com.is_valid():
-            com.save()
+        title = request.POST.get('title')
+        comment = request.POST.get('comment')
+        prod_name = Products.objects.get(id=pk)
+        comment_item, created = Comments.objects.get_or_create(
+            name=prod_name,
+            title=title,
+            comment=comment,
+        )
+        if created:
+            comment_item.save()
         item = Products.objects.get(id=pk)
-        form = CommentForm()    
-        comments = Comments.objects.all()
-        context = {'comment': comments, 'item': item,'form': form}
-        return render(request, 'cart/view.html', context)
+        form = CommentForm()
+        comments = Comments.objects.filter(name=prod_name)
+        return redirect('view', pk=pk)
     
 def delete(request, pk):
     item = Cart.objects.get(id=pk)

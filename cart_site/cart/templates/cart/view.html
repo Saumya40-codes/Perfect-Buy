@@ -44,14 +44,20 @@
 <form action="{% url 'comment' %}" method="post">
 {% csrf_token %}
 <input type="hidden" name="item_ids" value="{{item.id}}">
-{{item.id}}
 Title : {{form.title}} <br>
-Comment : {{form.comment}}
+Comment : {{form.comment}} <br>
 <input type="submit" value="Post">
 </form>
 <hr>
 {% for comments in comment %}
-<p>{{comments.title}}</p>
+<p>{{request.user}}</p>
+<p><b>{{comments.title}}</b></p>
 <p>{{comments.comment}}</p>
+<hr>
 {% endfor %}
+{% if comment %}
+<p>yes</p>
+{% else %}
+<p>No</p>
+{% endif %}
 {% endblock %}

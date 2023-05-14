@@ -24,6 +24,7 @@ class Cart(models.Model):
         return self.name
     
 class Comments(models.Model):
+    name = models.ForeignKey(Products, on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=50)
     comment = models.CharField(max_length=500)
     def __str__(self):
