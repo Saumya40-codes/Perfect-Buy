@@ -71,6 +71,9 @@
     {% for item in items %}
    Name: {{item.name}} <br>
    Price:  {{item.price}} <br>
+   {% if item.prod_img %}
+    <img src="{{item.prod_img.url}}" width="200px" height="200px"> <br>
+    {% endif %}
    Description: {{item.descp}} <br>
    <a href="{% url 'view' item.id %}">View</a>
     <hr>

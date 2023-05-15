@@ -11,7 +11,7 @@ class LoginForm(ModelForm):
 class ProductsForm(ModelForm):
     class Meta:
         model = Products
-        fields = ['name', 'price', 'descp']
+        fields = ['name', 'price', 'descp', 'prod_img']
 
 class CommentForm(ModelForm):
     class Meta:

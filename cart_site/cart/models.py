@@ -10,6 +10,7 @@ class Login(models.Model):
 
 class Products(models.Model):
     name = models.CharField(max_length=50)
+    prod_img = models.ImageField(upload_to='images/', null=True, blank=True)
     price = models.IntegerField()
     descp = models.CharField(max_length=100)
     def __str__(self):

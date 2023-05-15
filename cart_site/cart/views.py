@@ -78,7 +78,7 @@ def publish(request):
 @login_required(login_url='login')
 def publish_prod(request):
     if request.method == 'POST':
-        form = ProductsForm(request.POST)
+        form = ProductsForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             messages.success(request, 'Product published successfully')
