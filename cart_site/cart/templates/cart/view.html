@@ -33,6 +33,9 @@
 {% csrf_token %}
 <input type="hidden" name="username" value="{{request.user}}">
 <input type="hidden" name="item_id" value="{{item.id}}">
+{% if item.prod_img %}
+<input type="hidden" name = "item_img" value="{{item.prod_img.url}}">
+{% endif %}
 <input type="hidden" name="item_name" value="{{item.name}}">
 <input type="hidden" name="item_price" value="{{item.price}}">
 <input type="hidden" name="item_descp" value="{{item.descp}}"> <br>
@@ -58,9 +61,4 @@ Comment : {{form.comment}} <br>
 <p>{{comments.comment}}</p>
 <hr>
 {% endfor %}
-{% if comment %}
-<p>yes</p>
-{% else %}
-<p>No</p>
-{% endif %}
 {% endblock %}

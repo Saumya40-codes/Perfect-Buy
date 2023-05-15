@@ -19,6 +19,7 @@ class Products(models.Model):
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
+    img = models.ImageField(null=True, blank=True, upload_to='images/')
     price = models.IntegerField()
     descp = models.CharField(max_length=100)
     def __str__(self):

@@ -67,7 +67,10 @@
         {% if item_count %}
         {{item_count}} items available <br>
         {% endif %}
-    </div>
+        {% if item_count  == 0 %}
+       <p> No items available for the given search </p>
+        {% endif %}
+</div>
     {% for item in items %}
    Name: {{item.name}} <br>
    Price:  {{item.price}} <br>

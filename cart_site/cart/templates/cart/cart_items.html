@@ -7,8 +7,8 @@ Total Price : {{total_price}} <br>
 {% csrf_token %}
 {{item.name}} <br>
 {{item.price}} <br>
-{% if item.prod_img %}
-<img src="{{item.prod_img.url}}" width="200px" height="200px"> <br>
+{% if item.img %}
+<img src="{{item.img}}" width="200px" height="200px"> <br>
 {% endif %}
 {{item.descp}}  <br>
 <input type="submit" value="Remove"> <br>

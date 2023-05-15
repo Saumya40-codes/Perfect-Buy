@@ -92,10 +92,12 @@ def view(request, pk):
         item_name = request.POST.get('item_name')
         item_price = request.POST.get('item_price')
         item_descp = request.POST.get('item_descp')
+        item_img = request.POST.get('item_img')
         name = User.objects.get(username=request.user)
         cart_item, created = Cart.objects.get_or_create(
             user=name,
             name=item_name,
+            img = item_img,
             price=item_price,
             descp=item_descp,     
         )
