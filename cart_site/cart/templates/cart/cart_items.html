@@ -3,7 +3,7 @@
 Total Items : {{items.count}} <br>
 Total Price : {{total_price}} <br>
 {% for item in items %}
-<form action="{% url 'delete' item.id %}" method="post">
+<form action="{% url 'delete' item.id 'cart' %}" method="post">
 {% csrf_token %}
 {{item.name}} <br>
 {{item.price}} <br>

@@ -9,7 +9,7 @@
     input[id="search"]{
         border:2px solid blue;
         border-radius: 10px;
-        padding:10px;
+        padding:10px 100px 10px 10px;
         margin-right: 10px;
     }
     button{
@@ -46,6 +46,12 @@
         margin-top: 120px;
         justify-content: right;
     }
+    .line{
+        background-color: rgb(189, 189, 44);
+        width: 100%;
+        height: 5px;
+        border-radius: 2.5px;
+    }
 </style>
 <form action="" method="post">
     {% csrf_token %}
@@ -72,14 +78,18 @@
         {% endif %}
 </div>
     {% for item in items %}
-   Name: {{item.name}} <br>
-   Price:  {{item.price}} <br>
+   <b>{{item.name}}  </b> <br>
    {% if item.prod_img %}
     <img src="{{item.prod_img.url}}" width="200px" height="200px"> <br>
     {% endif %}
+    Price:  {{item.price}} <br>
    Description: {{item.descp}} <br>
-   <a href="{% url 'view' item.id %}">View</a>
-    <hr>
+   <a href="{% url 'view' item.id %}">View</a> <br>
+   {% if request.user == item.publisher%}
+   <a href="{% url 'edit' item.id %}">Edit</a> <br>
+    <a href="{% url 'delete' item.id 'prod' %}">Delete</a> <br>
+    {% endif %}
+    <p class="line"></p>
     {% endfor %}
 </div>
 

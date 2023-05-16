@@ -80,9 +80,11 @@ def publish_prod(request):
     if request.method == 'POST':
         form = ProductsForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            messages.success(request, 'Product published successfully')
-            return redirect('publish_prod')
+           publisher =  form.save(commit = False)
+           publisher.publisher = request.user
+           publisher.save()
+           messages.success(request, 'Product published successfully')
+           return redirect('publish_prod')
     form = ProductsForm()
     context = {'form': form}
     return render(request, 'cart/publish_prod.html', context)
@@ -145,8 +147,26 @@ def comment(request):
         comments = Comments.objects.filter(name=prod_name)
         return redirect('view', pk=pk)
     
-def delete(request, pk):
-    item = Cart.objects.get(id=pk)
-    item.delete()
-    messages.success(request, 'Item deleted successfully')
-    return redirect('cart')
+def delete(request, pk, item_type):
+    if(item_type == 'cart'):
+        item = Cart.objects.get(id=pk)
+        item.delete()
+        messages.success(request, 'Item deleted successfully')
+        return redirect('cart')
+    elif(item_type == 'prod'):
+        item = Products.objects.get(id=pk)
+        item.delete()
+        return redirect('publish')
+
+def edit(request,pk):
+    name = 'edit'
+    item = Products.objects.get(id=pk)
+    form = ProductsForm(instance=item)
+
+    if request.method == 'POST':
+        form = ProductsForm(request.POST,request.FILES, instance = item)
+        if form.is_valid():
+            form.save()
+            return redirect('publish')
+    context = {'form':form, 'name':name}
+    return render(request,'cart/publish_prod.html',context)
