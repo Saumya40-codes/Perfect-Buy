@@ -52,6 +52,29 @@
         height: 5px;
         border-radius: 2.5px;
     }
+    .block{
+        display:flex;
+        justify-content: right;
+
+    }
+    .main{
+        display: grid;
+        grid-template-columns: auto auto ;
+        row-gap: 10px;
+    }
+    .descp{
+        width:200px;
+    }
+    .price-main{
+        font-weight: bold;
+        font-size: 30px;
+    }
+    .price{
+        margin-top: 15px;
+        display: grid;
+        grid-template-columns: auto auto;
+        width:30px;
+    }
 </style>
 <form action="" method="post">
     {% csrf_token %}
@@ -78,12 +101,25 @@
         {% endif %}
 </div>
     {% for item in items %}
-   <b>{{item.name}}  </b> <br>
-   {% if item.prod_img %}
+<div class="main">
+<div clas="temp">
+    {% if item.prod_img %}
     <img src="{{item.prod_img.url}}" width="200px" height="200px"> <br>
     {% endif %}
-    Price:  {{item.price}} <br>
-   Description: {{item.descp}} <br>
+</div>
+<div class="temp">
+   <b>{{item.name}}  </b> <br>
+   <div class="descp">
+    {{item.descp}} <br>
+ </div>
+ <div class="price">
+ <div class="price-main">
+    {{item.price}} <br>
+</div>
+M.R.P
+</div>
+</div>
+</div> <br>
    <a href="{% url 'view' item.id %}">View</a> <br>
    {% if request.user == item.publisher%}
    <a href="{% url 'edit' item.id %}">Edit</a> <br>

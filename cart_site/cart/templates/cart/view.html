@@ -22,23 +22,23 @@
 </style>
 
 
-{{item.name}} <br>
-{{item.price}} <br>
-{% if item.prod_img %}
-<img src="{{item.prod_img.url}}" width="200px" height="200px"> <br>
+{{items.name}} <br>
+{{items.price}} <br>
+{% if items.prod_img %}
+<img src="{{items.prod_img.url}}" width="200px" height="200px" class="item-img"> <br>
 {% endif %}
-{{item.descp}} <br>
+{{items.descp}} <br>
 
 <form action="" method="post">
 {% csrf_token %}
 <input type="hidden" name="username" value="{{request.user}}">
-<input type="hidden" name="item_id" value="{{item.id}}">
-{% if item.prod_img %}
-<input type="hidden" name = "item_img" value="{{item.prod_img.url}}">
+<input type="hidden" name="item_id" value="{{items.id}}">
+{% if items.prod_img %}
+<input type="hidden" name = "item_img" value="{{items.prod_img.url}}">
 {% endif %}
-<input type="hidden" name="item_name" value="{{item.name}}">
-<input type="hidden" name="item_price" value="{{item.price}}">
-<input type="hidden" name="item_descp" value="{{item.descp}}"> <br>
+<input type="hidden" name="item_name" value="{{items.name}}">
+<input type="hidden" name="item_price" value="{{items.price}}">
+<input type="hidden" name="item_descp" value="{{items.descp}}"> <br>
 <input type="submit" value="Add to cart" class="btn">
 </form>
 {% for message in messages %}
@@ -46,15 +46,28 @@
 {% endfor %}
 
 
+<hr>
+{% if similar_item %}
+<p>Similar Items</p>
+{% for item in similar_item %}
+{% if item.name != items.name %}
+{{item.name}} <br>
+{% if item.prod_img %}
+<img src="{{item.prod_img.url}}" alt="" width="200px" height="200px">
+{% endif %}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+<hr>
 <p class="rc">Reviews & Comments </p>
 <form action="{% url 'comment' %}" method="post">
 {% csrf_token %}
-<input type="hidden" name="item_ids" value="{{item.id}}">
+<input type="hidden" name="item_ids" value="{{items.id}}">
 Title : {{form.title}} <br>
 Comment : {{form.comment}} <br>
 <input type="submit" value="Post">
 </form>
-<hr>
 {% for comments in comment %}
 <p>{{request.user}}</p>
 <p><b>{{comments.title}}</b></p>

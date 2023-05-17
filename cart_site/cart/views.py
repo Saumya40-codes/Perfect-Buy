@@ -108,13 +108,23 @@ def view(request, pk):
         messages.success(request, 'Item added to cart successfully')
         pk = int(request.POST.get('item_id'))
         item = Products.objects.get(id=pk)
+        first_two = ''.join(item.name[0:2])
+        similar_item = Products.objects.filter(
+            Q(name__icontains=first_two) |
+            Q(descp__icontains=first_two)
+        )
         form = CommentForm()
-        context = {'item': item, 'form': form}
+        context = {'items': item, 'form': form, 'similar_item': similar_item}
         return render(request, 'cart/view.html', context)
     item = Products.objects.get(id=pk)
+    first_two = ''.join(item.name[0:2])
+    similar_item = Products.objects.filter(
+            Q(name__icontains=first_two) |
+            Q(descp__icontains=first_two)
+        )
     form = CommentForm()
     comment = Comments.objects.filter(name=item)
-    context = {'item': item, 'form': form, 'comment': comment}
+    context = {'items': item, 'form': form, 'comment': comment, 'similar_item': similar_item}
     return render(request, 'cart/view.html', context)
 
 def cart(request):
