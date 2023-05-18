@@ -1,5 +1,11 @@
 {% extends 'cart/home.html' %}
 {% block content %}
+<style>
+    *{
+        background-color: white;
+        margin-left: 40px;
+    }
+</style>
 Total Items : {{items.count}} <br>
 Total Price : {{total_price}} <br>
 {% for item in items %}

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+            outline: none;
+            border: none;
+            text-decoration: none;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+        nav{
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            bottom: 0px;
+            height: 100%;
+            background: #fff;
+            width: 90px;
+            overflow: hidden;
+            transition: width 0.2s linear;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.1);
+        }
+
+        .logo{
+            text-align: center;
+            display: flex;
+            transition: all 0.5s ease;
+            margin: 10px 0px 0px 10px;
+        }
+        .logo img{
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+        }
+        .logo span{
+            font-weight: bold;
+            padding: 15px;
+            font-size: 18px;
+            text-transform: uppercase;
+        }
+        a{
+            position: relative;
+            color: rgb(85, 83, 83);
+            font-size: 14px;
+            display: table;
+            width: 300px;
+            padding: 10px;
+        }
+        .fas{
+            position: relative;
+            width: 70px;
+            height: 40px;
+            top: 14px;
+            font-size: 20px;
+            text-align: center;
+        }
+        .nav-item{
+            position: relative;
+            top: 12px;
+            margin-left: 10px;
+        }
+        a:hover{
+            background: #eee;
+        }
+        nav:hover{
+            width: 288px;
+            transition: all 0.5s ease;
+        }
+        .logout{
+            position: relative;
+            bottom: 0px;
+        }
+        nav:hover + body {
+        margin-left: 288px; /* Shift the body to the right when nav is hovered */
+    }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul class="list-unstyled">
+            <li>
+                <a href="#" class="logo d-flex align-items-center">
+                    <img src="data:image/jpeg;base64,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" alt="">
+                    <span class="nav-item">Welcome, {{ request.user }}</span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'publish' %}" class="d-flex align-items-center">
+                    <i class="fas fa-home"></i>
+                    <span class="nav-item">Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'publish_prod' %}" class="d-flex align-items-center">
+                    <i class="fas fa-paper-plane"></i>
+                    <span class="nav-item">Publish your product</span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'cart' %}" class="d-flex align-items-center">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="nav-item">View your cart</span>
+                </a>
+            </li>
+            <li>
+                <a href="" class="d-flex align-items-center">
+                    <i class="fas fa-sign-out-alt logout"></i>
+                    <span class="nav-item">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

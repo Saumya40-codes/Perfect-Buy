@@ -2,7 +2,15 @@
 
 {% block content %}
 <style>
+    *{
+        background-color: white;
+        margin-left: 40px;
+    }
+    nav:hover + body {
+        margin-left: 288px; /* Shift the body to the right when nav is hovered */
+    }
     .srch{
+        margin-top: 10px;
         display: flex;
         justify-content: center;
     }
@@ -80,15 +88,6 @@
     {% csrf_token %}
 <div class="srch">
     <input type="text" placeholder="Search for products" name="q" id="search"> <button type="submit">Search</button>
-</div>
-<div class="welcome">
-    Welcome, {{request.user}}
-</div>
-    <div class="pub">
-    <a href="{% url 'publish_prod' %}">Publish Your Product</a> <br> 
-</div>
-<div class="pub">
-    <a href="{% url 'cart' %}">View your cart</a>
 </div>
 </form>
 <div>
