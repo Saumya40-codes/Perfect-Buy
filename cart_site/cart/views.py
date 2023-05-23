@@ -13,7 +13,9 @@ from django.urls import reverse
 
 
 def index(request):
-    return render(request, 'cart/home.html')
+    new_prod = Products.objects.all().order_by('-created')[:3]
+    context = {'new_prod': new_prod}
+    return render(request, 'cart/home.html', context)
 
 def login(request):
     name = 'login'

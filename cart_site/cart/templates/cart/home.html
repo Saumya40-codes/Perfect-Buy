@@ -37,6 +37,15 @@
 {% endif %}
     <h1>PerfectBuy</h1>
     <p>Get the best products from anywhere around the world</p>
+    <hr>
+    <h1>NEW ARRIVALS</h1>
+    {% for prods in new_prod %}
+    <div class="">
+    <img src="{{prods.prod_img.url}}" width="200px" height="200px">
+    <div>
+    <h3>{{prods.name}}</h3>
+    <p>{{prods.descp}}</p>
+    {%endfor %}
     {% endblock %}
 </body>
 </html>
