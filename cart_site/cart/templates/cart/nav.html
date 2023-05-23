@@ -21,6 +21,7 @@
             text-decoration: none;
             box-sizing: border-box;
             font-family: "Poppins", sans-serif;
+            background-color: white;
         }
         nav{
             position: absolute;
@@ -28,7 +29,7 @@
             left: 0px;
             bottom: 0px;
             height: 100%;
-            background: #fff;
+            background: white;
             width: 90px;
             overflow: hidden;
             transition: width 0.2s linear;
@@ -99,9 +100,15 @@
                 </a>
             </li>
             <li>
-                <a href="{% url 'publish' %}" class="d-flex align-items-center">
+                <a href="{% url 'index' %}" class="d-flex align-items-center">
                     <i class="fas fa-home"></i>
                     <span class="nav-item">Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'publish' %}" class="d-flex align-items-center">
+                    <i class="fas fa-eye"></i>
+                    <span class="nav-item">Explore</span>
                 </a>
             </li>
             <li>

@@ -1,18 +1,16 @@
 {% extends 'cart/home.html' %}
 
 {% block content %}
+{% include 'cart/nav.html' %}
 <style>
     *{
         background-color: white;
-        margin-left: 40px;
-    }
-    nav:hover + body {
-        margin-left: 288px; /* Shift the body to the right when nav is hovered */
     }
     .srch{
         margin-top: 10px;
         display: flex;
         justify-content: center;
+        margin-bottom: 90px;
     }
     input[id="search"]{
         border:2px solid blue;
@@ -83,7 +81,11 @@
         grid-template-columns: auto auto;
         width:30px;
     }
+    .wrapper{
+        margin-left: 320px;
+    }
 </style>
+<div class="wrapper">
 <form action="" method="post">
     {% csrf_token %}
 <div class="srch">
@@ -130,5 +132,6 @@ M.R.P
 
 <div class="log-out">
     <a href="{% url 'logout' %}">Log Out</a>
+</div>
 </div>
 {% endblock %}
